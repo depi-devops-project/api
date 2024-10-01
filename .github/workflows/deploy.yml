@@ -21,11 +21,15 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.VPS_IP }} << 'EOF'
             if [ ! -d "/home/ubuntu/app" ]; then
-              sudo git clone git@github.com:depi-brogrammers/api.git /home/ubuntu/app
+              git clone https://github.com/depi-brogrammers/api /home/ubuntu/app
+              cd /home/ubuntu/app
+              yarn install
               sudo yarn pm2:start
+            else 
+              cd /home/ubuntu/app
+              sudo git pull origin main
+              sudo yarn install
+              sudo yarn pm2:restart
             fi
-            cd /home/ubuntu/app
-            sudo git pull origin main
-            sudo yarn install
-            sudo yarn pm2:restart
+            
           EOF
