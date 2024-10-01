@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "tsx src/app.ts",
 		"dev": "nodemon -e ts --exec tsx src/app.ts",
-		"deploy": "pm2 start \"yarn start\" --name \"depi\""
+		"deploy": "pm2 restart \"yarn start\" --name \"depi\" && pm2 save",
+		"postinstall": "rm -rf package-lock.json"
 	},
 	"dependencies": {
 		"@types/dotenv": "^8.2.0",
