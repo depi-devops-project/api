@@ -24,6 +24,7 @@ jobs:
               git clone https://github.com/depi-brogrammers/api /home/ubuntu/app
               cd /home/ubuntu/app
               yarn install
+              cp .env.example .env
               sudo yarn pm2:start
             else 
               cd /home/ubuntu/app
