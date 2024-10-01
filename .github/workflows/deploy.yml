@@ -30,7 +30,7 @@ jobs:
               cd /home/ubuntu/app
               git pull origin main
               yarn install
-              yarn pm2:restart
+              yarn pm2:restart || yarn pm2:start
             fi
             pm2 save
           EOF
