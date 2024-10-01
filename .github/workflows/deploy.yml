@@ -20,8 +20,12 @@ jobs:
       - name: Deploy to VPS
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.VPS_IP }} << 'EOF'
+            if [ ! -d "/home/app" ]; then
+              sudo git clone git@github.com:depi-brogrammers/api.git /home/app
+              sudo yarn pm2:start
+            fi
             cd /home/app
-            git reset --hard                  # Pull the latest changes
-            git pull origin main              # Pull the latest changes
-            yarn start                        # Install any new dependencies
+            sudo git pull origin main
+            sudo yarn install
+            sudo yarn pm2:restart
           EOF
