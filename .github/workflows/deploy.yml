@@ -25,12 +25,12 @@ jobs:
               cd /home/ubuntu/app
               yarn install
               cp .env.example .env
-              sudo yarn pm2:start
+              yarn pm2:start
             else 
               cd /home/ubuntu/app
-              sudo git pull origin main
-              sudo yarn install
-              sudo yarn pm2:restart
+              git pull origin main
+              yarn install
+              yarn pm2:restart
             fi
-            
+            pm2 save
           EOF
