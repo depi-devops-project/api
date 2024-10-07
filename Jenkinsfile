@@ -39,7 +39,7 @@ pipeline {
         
         stage('Notify Kubernetes') {
             steps {
-                 withCredentials([file(credentialsId: 'youCredId', variable: 'secretFile')]) {
+                 withCredentials([file(credentialsId: 'MACHINE_KEY', variable: 'secretFile')]) {
                      sh 'cat $secretFile'
                 }
             }
