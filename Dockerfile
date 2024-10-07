@@ -2,7 +2,7 @@ FROM node:20
 
 WORKDIR /app
 
-RUN npm i -g bun nodemon pm2
+RUN npm i -g bun nodemon pm2 tsx
 
 COPY package.json yarn.lock ./
 
