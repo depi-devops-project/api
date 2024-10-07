@@ -36,20 +36,16 @@ pipeline {
 //                }
 //            }
 //        }
-        
         stage('Notify Kubernetes') {
             steps {
-                withCredentials([file(credentialsId: 'MACHINE_KEY', variable: 'SECRET_FILE')]) {
-                    script {
-                        sh 'ssh-keyscan -H 3.83.24.195 >> ~/.ssh/known_hosts'
-                        
-                        sh """
-                            ssh -i \${SECRET_FILE} ubuntu@3.83.24.195 'echo "I GOT IN" >> ~/HELLO'
-                        """ 
-                    }
+                withCredentials([file(credentialsId: 'MACHINE_KEY', variable: 'secretFile')]) {
+                    sh """
+                        mkdir -p ~/.ssh
+                        ssh-keyscan -H 3.83.24.195 >> ~/.ssh/known_hosts
+                        ssh -i "${secretFile}" ubuntu@3.83.24.195 'echo "I GOT IN" >> ~/HELLO'
+                    """
                 }
             }
         }
-
     }
 }
