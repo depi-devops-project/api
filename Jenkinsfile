@@ -1,29 +1,31 @@
 pipeline {
-    agent any
+    agent any 
 
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo "Building.."
-                sh '''
-                echo "doing build stuff.."
-                '''
+                script {
+                    docker.build(":depi-api:latest", ".")
+                }
             }
         }
-        stage('Test') {
+
+        stage('Push to ECR') {
             steps {
-                echo "Testing.."
-                sh '''
-                echo "doing test stuff.."
-                '''
+                script {
+                    sh """
+                        aws ecr get-login-password --region ${params.awsRegion} | docker login --username AWS --password-stdin ${params.accountId}.dkr.ecr.${params.awsRegion}.amazonaws.com
+                    """
+
+                    sh "docker tag depi-api:latest ${params.accountId}.dkr.ecr.${params.awsRegion}.amazonaws.com/${params.ecrRepo}:latest"
+
+                    sh "docker push ${params.accountId}.dkr.ecr.${params.awsRegion}.amazonaws.com/${params.ecrRepo}:latest"
+                }
             }
         }
-        stage('Deliver') {
-            steps {
-                echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                '''
+
+        stage('Notify Kuberenetes'){
+            steps{
             }
         }
     }
