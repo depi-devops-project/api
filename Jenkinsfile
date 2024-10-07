@@ -7,7 +7,7 @@ pipeline {
 //        string(name: 'ecrRepo', defaultValue: 'main-repository', description: 'ECR Repository Name')
 //    }
 //
-//    stages {
+    stages {
 //        stage('Build Docker Image') {
 //            steps {
 //                script {
