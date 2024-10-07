@@ -39,11 +39,10 @@ pipeline {
         
         stage('Notify Kubernetes') {
             steps {
-                 withCredentials([file(credentialsId: 'MACHINE_KEY', variable: 'secretFile')]) {
-                     sh """
-                        ssh -i $secretFile ubuntu@3.83.24.195
-                        echo 'I GOT IN' >> ~/HELLO
-                       """ 
+                withCredentials([file(credentialsId: 'MACHINE_KEY', variable: 'secretFile')]) {
+                    sh """
+                        ssh -i $secretFile ubuntu@3.83.24.195 'echo "I GOT IN" >> ~/HELLO'
+                    """ 
                 }
             }
         }
