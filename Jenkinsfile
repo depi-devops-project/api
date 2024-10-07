@@ -1,21 +1,21 @@
 pipeline {
     agent any
     
-    parameters {
-        string(name: 'awsRegion', defaultValue: 'us-east-1', description: 'AWS Region')
-        string(name: 'accountId', defaultValue: '703862985210', description: 'AWS Account ID')
-        string(name: 'ecrRepo', defaultValue: 'main-repository', description: 'ECR Repository Name')
-    }
-
-    stages {
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    docker.build("depi-api:latest", ".")
-                }
-            }
-        }
-        
+//    parameters {
+//        string(name: 'awsRegion', defaultValue: 'us-east-1', description: 'AWS Region')
+//        string(name: 'accountId', defaultValue: '703862985210', description: 'AWS Account ID')
+//        string(name: 'ecrRepo', defaultValue: 'main-repository', description: 'ECR Repository Name')
+//    }
+//
+//    stages {
+//        stage('Build Docker Image') {
+//            steps {
+//                script {
+//                    docker.build("depi-api:latest", ".")
+//                }
+//            }
+//        }
+//        
 //        stage('Push to ECR') {
 //            steps {
 //                withCredentials([
