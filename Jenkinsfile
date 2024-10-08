@@ -11,7 +11,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("depi-api:latest", ".")
+                    sh 'docker build -t depi-api:latest .'
                 }
             }
         }
