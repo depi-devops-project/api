@@ -39,10 +39,15 @@ pipeline {
                     sh """
                         mkdir -p ~/.ssh
                         ssh-keyscan -H 3.83.24.195 >> ~/.ssh/known_hosts
-                        ssh -i "${secretFile}" ubuntu@3.83.24.195 'echo "I GOT IN" >> ~/HELLO'
+
+                        ssh -i "${secretFile}" ubuntu@3.83.24.195 '
+                            kubectl set image deployment/<your-deployment-name> <your-container-name>=<ecr-repo-url>:latest --record
+                            kubectl rollout status deployment/<your-deployment-name>
+                        '
                     """
                 }
             }
         }
+
     }
 }
