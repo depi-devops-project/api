@@ -1,15 +1,6 @@
-FROM node:20
-
+FROM python:3.11-slim
 WORKDIR /app
-
-RUN npm i -g bun nodemon pm2 tsx
-
-COPY package.json yarn.lock ./
-
-RUN yarn install
-
-COPY . .
-
+COPY . /app
 EXPOSE 5000
+CMD ["python", "server.py"]
 
-CMD ["npm", "start"]
