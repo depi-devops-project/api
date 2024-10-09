@@ -34,13 +34,14 @@ pipeline {
 
                         ssh -i "${secretFile}" ubuntu@3.84.112.107 echo "hello" > HELLO
 
-                        # ssh -i "${secretFile}" ubuntu@3.84.112.107 << EOF
-                        #     kubectl set image deployment/<your-deployment-name> <your-container-name>=<ecr-repo-url>:latest --record
-                        #     kubectl rollout status deployment/<your-deployment-name>
-                        # EOF
-                    '''
+                   '''
                 }
             }
         }
     }
 }
+// ssh -i "${secretFile}" ubuntu@3.84.112.107 << EOF
+// kubectl set image deployment/<your-deployment-name> <your-container-name>=<ecr-repo-url>:latest --record
+// kubectl rollout status deployment/<your-deployment-name>
+// EOF
+ 
