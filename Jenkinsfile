@@ -35,7 +35,6 @@ pipeline {
                         ssh -i "${secretFile}" ubuntu@3.84.26.86 << EOF
                             kubectl set image deployment/python-deployment python-container="${params.accountId}.dkr.ecr.${params.awsRegion}.amazonaws.com/${params.ecrRepo}/depi-api:latest" --record
                             kubectl rollout restart deployment/python-deployment
-                        EOF
                     """
                 }
             }
