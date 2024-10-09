@@ -28,15 +28,15 @@ pipeline {
         stage('Notify Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: 'MACHINE_KEY', variable: 'secretFile')]) {
-                    sh '''
+                    sh """
                         mkdir -p ~/.ssh
                         ssh-keyscan -H 3.84.112.107 >> ~/.ssh/known_hosts
 
                         ssh -i "${secretFile}" ubuntu@3.84.112.107 << EOF
-                            kubectl set image deployment/<your-deployment-name> <your-container-name>=<ecr-repo-url>:latest --record
+                            kubectl set image deployment/<your-deployment-name> ${params.accountId}.dkr.ecr.${params.awsRegion}.amazonaws.com/${params.ecrRepo}:latest --record
                             kubectl rollout status deployment/<your-deployment-name>
                         EOF
-                    '''
+                    """
                 }
             }
         }
