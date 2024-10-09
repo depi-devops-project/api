@@ -28,18 +28,17 @@ pipeline {
         stage('Notify Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: 'MACHINE_KEY', variable: 'secretFile')]) {
-                    sh """
+                    sh '''
                         mkdir -p ~/.ssh
                         ssh-keyscan -H 3.83.24.195 >> ~/.ssh/known_hosts
 
-                        ssh -i "${secretFile}" ubuntu@3.83.24.195 '
+                        ssh -i "${secretFile}" ubuntu@3.83.24.195 << EOF
                             kubectl set image deployment/<your-deployment-name> <your-container-name>=<ecr-repo-url>:latest --record
                             kubectl rollout status deployment/<your-deployment-name>
-                        '
-                    """
+                        EOF
+                    '''
                 }
             }
         }
-
     }
 }
