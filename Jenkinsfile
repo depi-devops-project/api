@@ -33,7 +33,7 @@ pipeline {
                         ssh-keyscan -H 3.84.26.86 >> ~/.ssh/known_hosts
 
                         ssh -i "${secretFile}" ubuntu@3.84.26.86 << EOF
-                            kubectl set image deployment/python-deployment ${params.accountId}.dkr.ecr.${params.awsRegion}.amazonaws.com/${params.ecrRepo}:latest --record
+                            kubectl set image deployment/python-deployment "${params.accountId}.dkr.ecr.${params.awsRegion}.amazonaws.com/${params.ecrRepo}:latest" --record
                             kubectl rollout restart deployment/python-deployment
                         EOF
                     """
