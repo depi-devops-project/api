@@ -1,16 +1,16 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+import socket
 
 
-class SimpleHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/plain')
-        self.end_headers()
-        self.wfile.write(b"Hello, World!")
+def resolve_nginx():
+    try:
+        nginx_service = "nginx.default.svc.cluster.local"
+        print(f"Resolving {nginx_service}")
+        ip = socket.gethostbyname(nginx_service)
+        print(f"Nginx Service IP: {ip}")
+    except socket.gaierror:
+        print("Error resolving the DNS")
 
 
 if __name__ == "__main__":
-    server_address = ('', 5000)
-    httpd = HTTPServer(server_address, SimpleHandler)
-    print("Server running on port 5000...")
-    httpd.serve_forever()
+    while (True):
+        resolve_nginx()
